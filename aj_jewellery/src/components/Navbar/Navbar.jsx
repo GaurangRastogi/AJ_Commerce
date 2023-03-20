@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.css';
 import Logo from '../../images/logo.png';
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useState } from 'react';
 
 function Navbar() {
@@ -11,6 +11,10 @@ function Navbar() {
   const goSignIn = ()=>{
     navigate('/signin');
   }
+
+  const goProductPage=()=>{
+    navigate('/products');
+  }
   return (
     <div className='navbar'>
       <div className="logo">
@@ -19,7 +23,7 @@ function Navbar() {
       </div>
       <div className='links'>
         <span>Home</span>
-        <span>Product</span>
+        <span  onClick={()=>goProductPage()}>Product</span>
         <span>Cart</span>
         <span onClick={()=>goSignIn()}>SignIn</span>
       </div>
@@ -31,7 +35,7 @@ function Navbar() {
         <div className='hamburgerLinks'>
             <i className="fa-solid fa-xmark fa-2xl" onClick={()=>setHamburger(true)} style={{"marginLeft":"30px"}}/>
             <p>Home</p>
-            <p>Product</p>
+            <p onClick={()=>goProductPage()}>Product</p>
             <p>Cart</p>
             <p onClick={()=>goSignIn()}>SignIn</p>
         </div>
