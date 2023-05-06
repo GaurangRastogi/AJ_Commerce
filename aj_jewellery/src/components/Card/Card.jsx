@@ -2,18 +2,20 @@ import React from 'react'
 import './Card.css';
 import ProductImage from '../../images/product1.jpg';
 
-function Card() {
+function Card({card}) {
   return (
     <div className="cardComponent">
         <div class="card">
-            <img src={ProductImage} alt="Rings"/>
+            <img src={card.productPhoto} alt="Rings"/>
 
             <div class="card__details">
-                <span class="tag">Ring</span>
+                <span class="tag">{card.productType}</span>
 
-                <span class="tag">Gold</span>
+                <span class="tag">{card.productMetal}</span>
 
-                <div class="name">Ladies Ring</div>
+                <div class="name">{card.productName}</div>
+                
+                {/* navigate to productPage/#productId */}
                 <button id="card_details_button">See Product</button>
             </div>
         </div>

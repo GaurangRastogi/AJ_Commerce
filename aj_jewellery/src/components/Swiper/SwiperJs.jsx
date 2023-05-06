@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { register } from 'swiper/element/bundle';
 import Card from '../Card/Card';
 import './SwiperJs.css';
@@ -9,16 +9,20 @@ register();
 
 function SwiperJs() {
   const swiperElRef = useRef(null);
+  const [items,setItems]=useState([]);
+
+  const getUser= async()=>{
+
+    const response=await fetch('http://localhost:3001/user/getProductItems');
+
+    const json=await response.json();
+
+    setItems(json);
+
+  }
 
   useEffect(() => {
-    // listen for Swiper events using addEventListener
-    swiperElRef.current.addEventListener('progress', (e) => {
-      // const [swiper, progress] = e.detail;
-    });
-
-    swiperElRef.current.addEventListener('slidechange', (e) => {
-      // console.log('slide changed');
-    });
+    getUser();
   }, []);
 
   return (
@@ -28,11 +32,18 @@ function SwiperJs() {
       navigation="true"
       pagination="true"
     >
+    {/* map the Card item with product... of certain item */}
+    {items.map((item) => (
+
+      <swiper-slide><Card key={item._id} card={item}/></swiper-slide>
+
+    ))}
+
+
+      {/* <swiper-slide><Card/></swiper-slide>
       <swiper-slide><Card/></swiper-slide>
       <swiper-slide><Card/></swiper-slide>
-      <swiper-slide><Card/></swiper-slide>
-      <swiper-slide><Card/></swiper-slide>
-      <swiper-slide><Card/></swiper-slide>
+      <swiper-slide><Card/></swiper-slide> */}
       
     </swiper-container>
   );

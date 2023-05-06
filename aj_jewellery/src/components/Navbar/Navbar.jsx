@@ -38,6 +38,7 @@ function Navbar() {
         {localStorage.getItem("user") === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
+          //on click open the profile page and there only have the option to log out
           <span onClick={()=>getProfile()}>{localStorage.getItem("user")[0].toUpperCase()+localStorage.getItem("user").substring(1)}</span>
         )}
       </div>

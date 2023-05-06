@@ -4,4 +4,26 @@ const Product=require('../models/product');
 const Order=require('../models/order');
 
 
+
+exports.addProduct=async (req,res)=>{
+
+    try{
+        //you can check if the product is already addeed?
+        const newProduct=new Product({
+            productName:req.body.productName,
+            productQuantity:req.body.productQuantity,
+            productType:req.body.productType,
+            productMetal:req.body.productMetal,
+            productPurety:req.body.productPurety,
+            productPhoto:req.body.productPhoto
+        });
+
+        await newProduct.save();
+        res.status(200).send({message:"Product Added"});
+
+    }
+    catch (err) {
+        res.status(400).send({ message: "Error occured " + err });
+    }
+}
 require('../middleware/database');

@@ -4,6 +4,8 @@ const adminController=require("../controller/admin");
 
 
 
+router.post('/addProduct',adminController.addProduct);
+
 /*
 
 signUp,

@@ -15,8 +15,8 @@
 .cardComponent .card img {
     width: 100%;
     border-radius: 12px;
-    /* height: 250px; */
-    object-fit: cover;
+    height: 250px;
+    object-fit: contain;
 }
 
 .card__details .tag {

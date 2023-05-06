@@ -3,6 +3,7 @@ const User = require("../models/user");
 const Product = require("../models/product");
 const Order = require("../models/order");
 const { sha256 } = require("js-sha256");
+const product = require("../models/product");
 
 require("../middleware/database");
 
@@ -23,7 +24,6 @@ exports.signUp = async (req, res) => {
       $or: [{ userName: userName }, { userEmail: userEmail }],
     });
 
-  
     if (userExists) throw "User with same credentials exists.";
 
     const user = new User({
@@ -48,15 +48,13 @@ exports.signIn = async (req, res) => {
     const { userCredential, userPassword } = req.body;
     //userCredential can be username or useremail
 
-  
-
     const user = await User.findOne({
       $or: [{ userName: userCredential }, { userEmail: userCredential }],
       userPassword: sha256(userPassword + process.env.SALT),
     });
 
     if (!user) throw "Credentials doesn't match";
-    
+
     res.json({
       message: "User logged in successfully",
     });
@@ -65,7 +63,24 @@ exports.signIn = async (req, res) => {
   }
 };
 
+exports.getProductItems = async (req, res) => {
+  try {
+    const productItems = await Product.aggregate([
+      {
+        $group: {
+          _id: "$productType",
+          productName: { $first: "$productName" },
+          productType: { $first: "$productType" },
+          productMetal: { $first: "$productMetal" },
+          productPhoto: { $first: "$productPhoto" }
+        }
+      },
+    ]);
 
+    // console.log(productItems);
 
-
-
+    res.status(200).json(productItems);
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
