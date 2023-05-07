@@ -33,9 +33,9 @@ function SwiperJs() {
       pagination="true"
     >
     {/* map the Card item with product... of certain item */}
-    {items.map((item) => (
+    {items.map((item,i) => (
 
-      <swiper-slide><Card key={item._id} card={item}/></swiper-slide>
+      <swiper-slide><Card key={i} card={item} buttonVal={"See More"}/></swiper-slide>
 
     ))}
 

@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
         required:true
     },
     productType:{
-        //Jhumka, Necklace
+        //Jhumka, Necklace,Chain
         type:String,
         required:true
     },

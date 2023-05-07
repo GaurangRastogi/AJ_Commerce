@@ -8,7 +8,12 @@ const Order=require('../models/order');
 exports.addProduct=async (req,res)=>{
 
     try{
-        //you can check if the product is already addeed?
+
+        const nameIfPresent=await Product.find({productName:req.body.productName});
+
+        if(nameIfPresent.length===0){
+            res.status(200).send({message:"Product Already Present, if you want to add items Update!"})
+        }
         const newProduct=new Product({
             productName:req.body.productName,
             productQuantity:req.body.productQuantity,
@@ -26,4 +31,5 @@ exports.addProduct=async (req,res)=>{
         res.status(400).send({ message: "Error occured " + err });
     }
 }
+
 require('../middleware/database');

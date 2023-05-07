@@ -72,14 +72,42 @@ exports.getProductItems = async (req, res) => {
           productName: { $first: "$productName" },
           productType: { $first: "$productType" },
           productMetal: { $first: "$productMetal" },
-          productPhoto: { $first: "$productPhoto" }
-        }
+          productPhoto: { $first: "$productPhoto" },
+        },
       },
     ]);
 
     // console.log(productItems);
 
     res.status(200).json(productItems);
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
+
+exports.getProductByTypes = async (req, res) => {
+  try {
+    const productItems = await Product.aggregate([
+      {
+        $group: {
+          _id: "$productType",
+        },
+      },
+    ]);
+
+    //Retrieve an array of all product types
+    // const productTypes = await Product.distinct("productType");
+
+    // Create an array of promises to retrieve all elements for each product type
+    const promises = productItems.map(async (productType) => {
+      const elements = await Product.find({ productType: productType._id });
+      return { productType, elements };
+    });
+
+    // Wait for all promises to resolve using Promise.all()
+    const resolvedPromises = await Promise.all(promises);
+
+    res.send({ message: resolvedPromises });
   } catch (err) {
     res.status(400).send({ message: "Error occured " + err });
   }
