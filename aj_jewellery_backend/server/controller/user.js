@@ -77,7 +77,6 @@ exports.getProductItems = async (req, res) => {
       },
     ]);
 
-    // console.log(productItems);
 
     res.status(200).json(productItems);
   } catch (err) {
@@ -112,3 +111,22 @@ exports.getProductByTypes = async (req, res) => {
     res.status(400).send({ message: "Error occured " + err });
   }
 };
+
+
+
+
+
+exports.getProductItem = async(req,res)=>{
+
+  try{
+    const search=req.params.search;
+    const product=await Product.findOne( {$or:[{"productType" : { $regex : new RegExp(search, "i") }},{"productName" : { $regex : new RegExp(search, "i") }}]}  );
+    if(product)
+      res.status(200).send({message:product.productType});
+    else
+      res.status(200).send({message:'/'});
+  }
+  catch(err){
+    res.status(400).send({ message: "Error occured " + err });
+  }
+}

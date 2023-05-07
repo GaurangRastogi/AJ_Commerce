@@ -11,6 +11,7 @@ Product page will show
     2. Each type of product can be access by #id => navigateto#id
     3. Or by clicking on see products
     4. Again call the same footer or different
+    4. Create a model -> for each product
     5. Create a add to cart page
     6. Checkout page
     7. Transaction page

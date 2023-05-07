@@ -4,6 +4,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import ItemBar from "../../components/ItemBar/ItemBar";
 import './ProductPage.css';
 import TypeBar from "../../components/TypeBar/TypeBar";
+import Footer from "../../components/Footer/Footer";
 
 function ProductPage() {
 
@@ -11,7 +12,7 @@ function ProductPage() {
 
   const getUser= async()=>{
 
-    const response=await fetch('http://localhost:3001/user/getProductByTypes');
+    const response=await fetch(process.env.REACT_APP_BACKEND_URL+'user/getProductByTypes');
 
     const json=await response.json();
 
@@ -28,8 +29,9 @@ function ProductPage() {
       <SearchBar/>
       <ItemBar title={'Product Types'}/>
       {myProducts.map((products,i)=>
-          <TypeBar key={i} type={products.productType._id} products={products.elements}/>
+         <TypeBar key={i} type={products.productType._id} products={products.elements}/>
       )}
+      <Footer/>
     </div>
   );
 }

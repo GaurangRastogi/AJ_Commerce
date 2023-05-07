@@ -20,6 +20,7 @@ function TypeBar({type,products}) {
         {products.map((product, i) => (
           <swiper-slide>
             <Card key={i} card={product} buttonVal={"See Product"}/>
+            <a href={`#`+product._id} style={{textDecoration:'none',color:'black'}}></a>
           </swiper-slide>
         ))}
 

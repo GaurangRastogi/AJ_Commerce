@@ -8,6 +8,7 @@ router.post('/signup',userController.signUp);
 router.post('/signin',userController.signIn);
 router.get('/getProductItems',userController.getProductItems);
 router.get('/getProductByTypes',userController.getProductByTypes);
+router.get('/getProductItem/:search',userController.getProductItem);
 
 /*
 

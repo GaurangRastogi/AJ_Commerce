@@ -13,7 +13,7 @@ function SwiperJs() {
 
   const getUser= async()=>{
 
-    const response=await fetch('http://localhost:3001/user/getProductItems');
+    const response=await fetch(process.env.REACT_APP_BACKEND_URL+'user/getProductItems');
 
     const json=await response.json();
 
