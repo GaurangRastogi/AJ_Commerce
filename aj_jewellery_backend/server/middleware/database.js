@@ -20,3 +20,4 @@ require('../models/admin');
 require('../models/user');
 require('../models/product');
 require('../models/order');
+require('../models/cart');

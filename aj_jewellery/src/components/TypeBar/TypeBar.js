@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import { useRef } from "react";
 // import './SwiperJs.css';
 
-function TypeBar({type,products}) {
+function TypeBar({type,products,openProduct}) {
   const swiperElRef = useRef(null);
   return (
     <div className="typeBar" id={type}>
@@ -18,8 +18,8 @@ function TypeBar({type,products}) {
       >
         {/* map the Card item with product... of certain item */}
         {products.map((product, i) => (
-          <swiper-slide>
-            <Card key={i} card={product} buttonVal={"See Product"}/>
+          <swiper-slide key={i}>
+            <Card card={product} buttonVal={"See Product"} openProduct={openProduct}/>
             <a href={`#`+product._id} style={{textDecoration:'none',color:'black'}}></a>
           </swiper-slide>
         ))}

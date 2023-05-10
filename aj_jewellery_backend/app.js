@@ -21,7 +21,6 @@ const adminRoutes=require('./server/routes/admin');
 app.use('/admin',adminRoutes);
 
 
-
 app.listen(3001,()=>{
     console.log(`Listening to port ${port}`);
 })

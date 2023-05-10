@@ -2,6 +2,7 @@ const Admin = require("../models/admin");
 const User = require("../models/user");
 const Product = require("../models/product");
 const Order = require("../models/order");
+const Cart=require('../models/cart');
 const { sha256 } = require("js-sha256");
 const product = require("../models/product");
 
@@ -57,6 +58,8 @@ exports.signIn = async (req, res) => {
 
     res.json({
       message: "User logged in successfully",
+      userId:user._id,
+      userName:user.userName
     });
   } catch (err) {
     res.status(400).send({ message: "Error occured " + err });
@@ -126,6 +129,80 @@ exports.getProductItem = async(req,res)=>{
     else
       res.status(200).send({message:'/'});
   }
+  catch(err){
+    res.status(400).send({ message: "Error occured " + err });
+  }
+}
+
+
+
+
+
+/**
+ * Cart Routes
+ * 
+ * 
+router.get('/cartItems/:cartId',userController.cartItemsByID);
+router.get('/cartItems/:cartId/:productId',userController.cartItemsByIdProductId);
+router.post('/addToCart',userController.addToCart);
+router.delete('/removeFromCart',userController,removeFromCart);
+*
+*/
+
+exports.cartItemsByUserID = async(req,res)=>{
+    try{
+
+      const userId=req.params.userId;
+      const cartItems = await Cart.find({userId:userId});
+      res.status(200).send({message:cartItems});
+
+    }
+    catch(err){
+      res.status(400).send({ message: "Error occured " + err });
+    }
+}
+
+exports.cartItemByUserIdProductId= async(req,res)=>{
+    try{
+      const userId=req.params.userId;
+      const productId=req.params.productId;
+      const cartItem=await Cart.find({userId:userId,productId:productId});
+
+      res.status(200).send({message:cartItem});
+    }
+    catch(err){
+      res.status(400).send({ message: "Error occured " + err });
+    }
+}
+
+exports.addToCart = async(req,res)=>{
+    try{
+      //need many things to add -> productId, userId
+      const userId=req.body.userId;
+      const productId=req.body.productId;
+
+      const cartItem=new Cart({
+        userId:userId,
+        productId:productId
+      })
+
+      await cartItem.save();
+      res.status(200).send({message:"Added!!"})
+    } 
+    catch(err){
+      res.status(400).send({ message: "Error occured " + err });
+    }
+}
+
+exports.removeFromCart = async(req,res)=>{
+  try{
+    const userId=req.body.userId;
+    const productId=req.body.productId;
+
+    const delCartItem=await Cart.deleteOne({userId:userId,productId:productId});
+
+    res.status(200).send({message:"Removed!!"});
+  } 
   catch(err){
     res.status(400).send({ message: "Error occured " + err });
   }

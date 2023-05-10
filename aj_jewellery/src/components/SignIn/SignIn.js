@@ -27,7 +27,9 @@ const SignIn = () => {
     const json = await response.json();
     console.log(json);
     if(json.message==="User logged in successfully"){
-      localStorage.setItem("user","gaurang");
+      localStorage.setItem("user",json.userName);
+      localStorage.setItem("userId",json.userId);
+      console.log(localStorage.getItem("user"));
       navigate('/');
     }
     else{

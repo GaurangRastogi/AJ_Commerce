@@ -2,6 +2,7 @@ const Admin = require("../models/admin");
 const User = require("../models/user");
 const Product = require("../models/product");
 const Order = require("../models/order");
+const Cart=require('../models/cart');
 
 exports.addProduct = async (req, res) => {
   try {

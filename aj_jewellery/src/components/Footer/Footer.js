@@ -18,7 +18,7 @@ function Footer() {
               <td>Jhumkas</td>
               <td>Profie Page</td>
               <td>
-                <i class="fa-solid fa-house" />
+                <i className="fa-solid fa-house" />
                 <span className="footerResponsive">
                   {" "}
                   &nbsp;Your Address buddy
@@ -30,7 +30,7 @@ function Footer() {
               <td>Rings</td>
               <td>Cart Page</td>
               <td>
-                <i class="fa-solid fa-envelope" />
+                <i className="fa-solid fa-envelope" />
                 <span className="footerResponsive">
                   &nbsp;gaurangrastogi209
                 </span>
@@ -41,7 +41,7 @@ function Footer() {
               <td>Chains</td>
               <td>Product Page</td>
               <td>
-                <i class="fa-solid fa-phone" />
+                <i className="fa-solid fa-phone" />
                 <span className="footerResponsive"> &nbsp;+91 6393056856</span>
               </td>
             </tr>
@@ -50,7 +50,7 @@ function Footer() {
               <td style={{ textDecoration: "underline" }}>See More</td>
               <td>HomePage</td>
               <td>
-                <i class="fa-brands fa-github" />
+                <i className="fa-brands fa-github" />
                 <span className="footerResponsive">&nbsp;gaurangrastogi</span>
               </td>
             </tr>

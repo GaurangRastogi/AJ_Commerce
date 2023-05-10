@@ -10,6 +10,12 @@ router.get('/getProductItems',userController.getProductItems);
 router.get('/getProductByTypes',userController.getProductByTypes);
 router.get('/getProductItem/:search',userController.getProductItem);
 
+//cart routes
+router.get('/cartItems/:userId',userController.cartItemsByUserID);
+router.get('/cartItems/:userId/:productId',userController.cartItemByUserIdProductId);
+router.post('/addToCart',userController.addToCart);
+router.delete('/removeFromCart',userController.removeFromCart);
+
 /*
 
 i) getProducts

@@ -35,7 +35,7 @@ function SwiperJs() {
     {/* map the Card item with product... of certain item */}
     {items.map((item,i) => (
 
-      <swiper-slide><Card key={i} card={item} buttonVal={"See More"}/></swiper-slide>
+      <swiper-slide key={i}><Card card={item} buttonVal={"See More"}/></swiper-slide>
 
     ))}
 

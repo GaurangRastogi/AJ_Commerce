@@ -9,10 +9,6 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import Footer from "../../components/Footer/Footer";
 function LandingPage() {
 
-  useEffect(()=>{
-      console.log("xyz"+localStorage.getItem("user"));
-  },[])
-
   return (
     <div className="landingPage">
       <Navbar />
