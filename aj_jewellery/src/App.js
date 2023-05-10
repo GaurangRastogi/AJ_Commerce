@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import {
   createBrowserRouter,
@@ -5,11 +6,10 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import CartPage from "./pages/CartPage/CartPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Authentication from "./pages/AuthenticationPage/Authentication";
 import ProductPage from "./pages/ProductPage/ProductPage";
-import { useEffect } from "react";
-import Product from "./components/Product/Product";
+import Authentication from "./pages/AuthenticationPage/Authentication";
 function App() {
   useEffect(() => {
     if (window.location.pathname !== "/") 
@@ -37,8 +37,8 @@ function App() {
       element: <ProductPage />,
     },
     {
-      path: "/product",
-      element: <Product />,
+      path: "/cart",
+      element: <CartPage/>,
     },
   ]);
   return <RouterProvider router={router} />;

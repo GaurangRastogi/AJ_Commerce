@@ -20,6 +20,10 @@ function Navbar() {
     navigate("/products");
   };
 
+  const goToCartPage=()=>{
+    navigate('/cart');
+  };
+
   const getProfile = () => {
     console.log("navigate to profile Model=> also has signOut option");
   };
@@ -34,7 +38,7 @@ function Navbar() {
       <div className="links">
         <span onClick={()=>goHomePage()}>Home</span>
         <span onClick={() => goProductPage()}>Product</span>
-        <span>Cart</span>
+        <span onClick={()=>goToCartPage()}>Cart</span>
         {localStorage.getItem("user") === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
@@ -58,7 +62,7 @@ function Navbar() {
             />
             <p  onClick={()=>goHomePage()}>Home</p>
             <p onClick={() => goProductPage()}>Product</p>
-            <p>Cart</p>
+            <p onClick={()=>goToCartPage()}>Cart</p>
             {localStorage.getItem("user") === "" ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (

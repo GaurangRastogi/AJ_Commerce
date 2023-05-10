@@ -54,7 +54,7 @@ const SignIn = () => {
         <button onClick={signIn}>Sign In!</button>
       </form>
       <div className="goHome" onClick={() => goHome()}>
-        <i class="fa-solid fa-xmark fa-2x"></i>
+        <i className="fa-solid fa-xmark fa-2x"></i>
       </div>
     </div>
   );
