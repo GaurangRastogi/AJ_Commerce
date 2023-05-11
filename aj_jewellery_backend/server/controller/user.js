@@ -25,7 +25,8 @@ exports.signUp = async (req, res) => {
       $or: [{ userName: userName }, { userEmail: userEmail }],
     });
 
-    if (userExists) throw "User with same credentials exists.";
+    if (userExists) 
+      throw "User with same credentials exists.";
 
     const user = new User({
       userName,
@@ -37,10 +38,11 @@ exports.signUp = async (req, res) => {
     await user.save();
 
     res.status(200).send({
+      type:"success",
       message: "User [" + userName + "] registered successfully",
     });
   } catch (err) {
-    res.status(400).send({ message: "Error occured " + err });
+    res.status(400).send({ type:"error",message: "Error occured " + err });
   }
 };
 
