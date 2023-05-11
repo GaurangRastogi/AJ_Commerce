@@ -10,6 +10,7 @@ import {
   Modal,
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import makeToast from "../../Toaster/Toaster";
 
 
 const Product= ({card,closeProduct}) => {
@@ -35,7 +36,7 @@ const Product= ({card,closeProduct}) => {
     });
 
     const json = await response.json();
-    //create a toaster
+    makeToast("info","Added To Cart!!");
     setCart(1);
   }
   
@@ -52,8 +53,7 @@ const Product= ({card,closeProduct}) => {
     });
 
     const json = await response.json();
-
-    //create a toaster
+    makeToast("warning","Removed from Cart")
     setCart(0);
   }
   const getInitialProductDetail=async()=>{
@@ -80,7 +80,7 @@ const Product= ({card,closeProduct}) => {
   };
 
   const onclickButton = async () => {
-      if(cart==0){
+      if(cart===0){
         addToCart();
       }
       else{
@@ -193,12 +193,12 @@ const Product= ({card,closeProduct}) => {
                 <Button
                   variant="contained"
                   color="primary"
-                  disabled={cart==2}
+                  disabled={cart===2}
                   onClick={() => onclickButton()}
                   size="large"
                   fullWidth
                 >
-                  {cart===2?"Sign In First":cart==0?"Add To Cart":"Remove From Cart"}
+                  {cart===2?"Sign In First":cart===0?"Add To Cart":"Remove From Cart"}
                 </Button>
               </Typography>
             </Grid>

@@ -10,6 +10,9 @@ import SignUp from "../../components/SignUp/SignUp";
 const Authentication = () => {
   const [welcome, setWelcome] = useState(false);
 
+  const utility=()=>{
+    setWelcome(!welcome);
+  }
   const setBannerClass = () => {
     const classArr = ["banner-side cfb"];
     if (welcome) classArr.push("send-right");
@@ -33,7 +36,7 @@ const Authentication = () => {
       </div>
 
       <div className={setFormClass()}>
-        {welcome ? <SignUp /> : <SignIn />}
+        {welcome ? <SignUp utility={()=>utility()}/> : <SignIn />}
       </div>
     </div>
   );

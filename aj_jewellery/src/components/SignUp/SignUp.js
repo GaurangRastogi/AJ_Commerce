@@ -1,13 +1,37 @@
 import React from 'react';
-
-// styling
 import '../../pages/AuthenticationPage/Authentication.css';
+import makeToast from '../../Toaster/Toaster';
 
-const SignUp = () => {
+const SignUp = ({utility}) => {
 
   const signUp=async (e)=>{
     e.preventDefault();
-    console.log("Sign UP");
+    const name=document.getElementById("name");
+    const email=document.getElementById("email");
+    const number=document.getElementById("number");
+    const password=document.getElementById("password");
+    const response = await fetch(process.env.REACT_APP_BACKEND_URL+"user/signup", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userName:name.value,
+        userEmail:email.value,
+        userMobile:number.value,
+        userPassword: password.value
+      }),
+    });
+
+    const json = await response.json();
+    makeToast(json.type,json.message);
+    
+    name.value="";
+    email.value="";
+    number.value="";
+    password.value="";
+
+    utility();
   }
   return (
     <div className="form-comp cfb">
@@ -16,25 +40,25 @@ const SignUp = () => {
         <label>
           Name:
           <br/>
-          <input type='text' placeholder='John Doe'/>
+          <input type='text' placeholder='John Doe' id="name"/>
         </label>
         <label>
           Email:
           <br/>
-          <input type='text' placeholder='name@gmail.com'/>
+          <input type='text' placeholder='name@gmail.com' id="email"/>
         </label>
         <label>
           Mobile Number:
           <br/>
-          <input type='number' placeholder='123456789'/>
+          <input type='number' placeholder='123456789' id="number"/>
         </label>
         <label>
           Password:
           <br/>
-          <input type='password' placeholder='pass@123'/>
+          <input type='password' placeholder='pass@123' id="password"/>
         </label>
         <br/>
-        <button onClick={signUp}>
+        <button onClick={(event)=>signUp(event)}>
           Sign Up!
         </button>
       </form>

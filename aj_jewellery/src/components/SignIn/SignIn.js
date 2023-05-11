@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import makeToast from '../../Toaster/Toaster.js';
 import "../../pages/AuthenticationPage/Authentication.css";
 
 const SignIn = () => {
@@ -25,15 +26,16 @@ const SignIn = () => {
     });
 
     const json = await response.json();
-    console.log(json);
     if(json.message==="User logged in successfully"){
       localStorage.setItem("user",json.userName);
       localStorage.setItem("userId",json.userId);
-      console.log(localStorage.getItem("user"));
       navigate('/');
+      makeToast("success",`Welcome ${localStorage.getItem("user")}`);
     }
     else{
-      console.log(json.message);
+      makeToast("warning",json.message);
+      email.value="";
+      password.value="";
     }
   };
   return (

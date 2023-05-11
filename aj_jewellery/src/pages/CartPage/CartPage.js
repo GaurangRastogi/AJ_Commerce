@@ -1,12 +1,30 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import makeToast from "../../Toaster/Toaster";
 function CartPage() {
   const navigate = useNavigate();
+  const userId=localStorage.getItem("userId");
+
+  const cartItemsOfUser = async ()=>{
+    
+    const response = await fetch(process.env.REACT_APP_BACKEND_URL+`user/cartItems/${userId}`);
+
+    const json = await response.json();
+
+    const cartItems=json.message;
+
+    console.log(cartItems);
+  }
   useEffect(() => {
-    //toaster -> signIn first
-    if (localStorage.getItem("user") === "") 
+    makeToast("warning","Please SignIn!!")
+    if (userId=== ""){
         navigate("/signin");
+        return;
+    }
+    cartItemsOfUser();
+    
   }, []);
+
 
   return (
     <div className="cartPage">

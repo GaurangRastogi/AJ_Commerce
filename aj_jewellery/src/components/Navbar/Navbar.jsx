@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Navbar.css";
 import Logo from "../../images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import MenuListComposition from "../MenuItem/MenuItem";
+import makeToast from "../../Toaster/Toaster";
 
 function Navbar() {
   const [hamburger, setHamburger] = useState(true);
-
+  const [userId,setUserId]=useState(localStorage.getItem("userId"));
   const navigate = useNavigate();
 
   const goHomePage=()=>{
@@ -24,10 +26,12 @@ function Navbar() {
     navigate('/cart');
   };
 
-  const getProfile = () => {
-    console.log("navigate to profile Model=> also has signOut option");
-  };
-
+  const logOut=()=>{
+    setUserId(localStorage.getItem("userId"));
+  }
+  useEffect(()=>{
+    // just to update navbar, if logged out
+  },[userId])
 
   return (
     <div className="navbar">
@@ -39,11 +43,11 @@ function Navbar() {
         <span onClick={()=>goHomePage()}>Home</span>
         <span onClick={() => goProductPage()}>Product</span>
         <span onClick={()=>goToCartPage()}>Cart</span>
-        {localStorage.getItem("user") === "" ? (
+        {userId === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
           //on click open the profile page and there only have the option to log out
-          <span onClick={()=>getProfile()}>{localStorage.getItem("user")[0].toUpperCase()+localStorage.getItem("user").substring(1)}</span>
+          <span><MenuListComposition  logOut={()=>logOut()}/></span>
         )}
       </div>
 
@@ -63,10 +67,10 @@ function Navbar() {
             <p  onClick={()=>goHomePage()}>Home</p>
             <p onClick={() => goProductPage()}>Product</p>
             <p onClick={()=>goToCartPage()}>Cart</p>
-            {localStorage.getItem("user") === "" ? (
+            {userId ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (
-              <p onClick={() => getProfile()}>{localStorage.getItem("user")[0].toUpperCase()+localStorage.getItem("user").substring(1)}</p>
+              <p><MenuListComposition logOut={()=>logOut()}/></p>
             )}
           </div>
         )}
