@@ -16,8 +16,8 @@ function CartPage() {
     console.log(cartItems);
   }
   useEffect(() => {
-    makeToast("warning","Please SignIn!!")
     if (userId=== ""){
+        makeToast("warning","Please SignIn!!")
         navigate("/signin");
         return;
     }

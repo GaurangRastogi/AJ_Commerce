@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import makeToast from '../../Toaster/Toaster.js';
 import "../../pages/AuthenticationPage/Authentication.css";
 
 const SignIn = () => {
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    localStorage.setItem("user","");
+    localStorage.setItem("userId","");
+  },[])
   const goHome = () => {
     navigate("/");
   };

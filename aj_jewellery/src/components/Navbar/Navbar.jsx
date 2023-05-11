@@ -43,11 +43,12 @@ function Navbar() {
         <span onClick={()=>goHomePage()}>Home</span>
         <span onClick={() => goProductPage()}>Product</span>
         <span onClick={()=>goToCartPage()}>Cart</span>
+        <span>Orders</span>
         {userId === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
           //on click open the profile page and there only have the option to log out
-          <span><MenuListComposition  logOut={()=>logOut()}/></span>
+          <MenuListComposition  logOut={()=>logOut()}/>
         )}
       </div>
 
@@ -67,10 +68,11 @@ function Navbar() {
             <p  onClick={()=>goHomePage()}>Home</p>
             <p onClick={() => goProductPage()}>Product</p>
             <p onClick={()=>goToCartPage()}>Cart</p>
+            <p>Orders</p>
             {userId ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (
-              <p><MenuListComposition logOut={()=>logOut()}/></p>
+              <MenuListComposition logOut={()=>logOut()}/>
             )}
           </div>
         )}
