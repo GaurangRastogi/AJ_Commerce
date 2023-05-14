@@ -36,7 +36,7 @@ function ProductPage() {
       <Navbar />
       <SearchBar/>
       <ItemBar title={'Product Types'}/>
-      {myProducts.map((products,i)=>
+      {myProducts&&myProducts.map((products,i)=>
          <TypeBar key={i} type={products.productType._id} products={products.elements} openProduct={openProduct}/>
       )}
       <Footer/>

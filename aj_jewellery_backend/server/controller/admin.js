@@ -19,6 +19,7 @@ exports.addProduct = async (req, res) => {
       const newProduct = new Product({
         productName: req.body.productName,
         productQuantity: req.body.productQuantity,
+        productWeight:req.body.productWeight,
         productType: req.body.productType,
         productMetal: req.body.productMetal,
         productPurety: req.body.productPurety,

@@ -12,14 +12,16 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import Authentication from "./pages/AuthenticationPage/Authentication";
 function App() {
   useEffect(() => {
+    localStorage.setItem("Gold", 1000);
+    localStorage.setItem("Silver", 100);
     if (window.location.pathname !== "/") 
         window.location.pathname = "/";
+      
     return () => {
       localStorage.setItem("user", "");
       localStorage.setItem("userId", "");
-      localStorage.setItem("gold", 1000);
-      localStorage.setItem("silver", 100);
-     
+      localStorage.setItem("Gold", 1000);
+      localStorage.setItem("Silver", 100);
     };
   },[]);
 

@@ -1,36 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import makeToast from "../../Toaster/Toaster";
+import Navbar from "../../components/Navbar/Navbar";
+import CartItem from "../../components/CartItem/CartItem";
+import Footer from '../../components/Footer/Footer.js';
+import "./CartPage.css";
+
 function CartPage() {
   const navigate = useNavigate();
-  const userId=localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
+  const [cart, setCart] = useState();
+  const [flag,setFlag]=useState(0)
 
-  const cartItemsOfUser = async ()=>{
-    
-    const response = await fetch(process.env.REACT_APP_BACKEND_URL+`user/cartItems/${userId}`);
+  const cartItemsOfUser = async () => {
+    const response = await fetch(
+      process.env.REACT_APP_BACKEND_URL + `user/cartItems/${userId}`
+    );
 
     const json = await response.json();
 
-    const cartItems=json.message;
+    const cartItems = json.message;
 
-    console.log(cartItems);
-  }
+    setCart(cartItems);
+  };
   useEffect(() => {
-    if (userId=== ""){
-        makeToast("warning","Please SignIn!!")
-        navigate("/signin");
-        return;
+    if (userId === "") {
+      makeToast("warning", "Please SignIn!!");
+      navigate("/signin");
+      return;
     }
     cartItemsOfUser();
-    
-  }, []);
-
+  }, [flag]);
 
   return (
     <div className="cartPage">
-        <p>Cart Page</p>
+      <Navbar />
+      {cart &&
+        cart.map((cartItem, i) => <CartItem key={cartItem._id} cartItem={cartItem}  toggleFlag={()=>setFlag(!flag)}/>)}
+      
+      <Footer/>
     </div>
-  )
+  );
 }
 
 export default CartPage;

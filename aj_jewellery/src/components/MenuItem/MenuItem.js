@@ -9,9 +9,11 @@ import MenuList from "@mui/material/MenuList";
 import Avatar from "@mui/material/Avatar";
 import makeToast from "../../Toaster/Toaster";
 import "./MenuItem.css";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuListComposition({ logOut }) {
   const [open, setOpen] = React.useState(false);
+  const navigate=useNavigate();
   const username =
     localStorage.getItem("user")[0].toUpperCase() +
     localStorage.getItem("user").substring(1);
@@ -25,15 +27,14 @@ export default function MenuListComposition({ logOut }) {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-    if (number == 0) console.log(3, number);
-    else if (number == 1) console.log(2, number);
+    if (number === 0) console.log(3, number);
+    else if (number === 1) console.log(2, number);
     else {
       localStorage.setItem("user", "");
       localStorage.setItem("userId", "");
       logOut();
       makeToast("warning", "Logged Out Successfully!!");
-      // window.location.pathname="/";
-      // Navigate()
+      navigate('/');
     }
     setOpen(false);
   };

@@ -136,6 +136,17 @@ exports.getProductItem = async(req,res)=>{
   }
 }
 
+exports.getProductById = async(req,res)=>{
+  try{
+    const productId=req.params.productId;
+    const product=await Product.findOne({_id:productId});
+    res.status(200).send({message:product});
+  }
+  catch(err){
+    res.status(400).send({ message: "Error occured " + err });
+  }
+}
+
 
 
 

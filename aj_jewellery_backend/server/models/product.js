@@ -10,6 +10,10 @@ const productSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    productWeight:{
+        type:Number,
+        required:true
+    },
     productType:{
         //Jhumka, Necklace,Chain
         type:String,
