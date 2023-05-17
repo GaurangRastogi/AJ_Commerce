@@ -6,9 +6,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Razorpay from "../Razorpay/Razorpay";
+import { useNavigate } from "react-router-dom";
 
 export default function AlertDialog({ product, price, close, quantity }) {
   const [open, setOpen] = React.useState(true);
+  const navigate=useNavigate();
 
   const handleClose = () => {
     setOpen(false);
@@ -16,7 +18,7 @@ export default function AlertDialog({ product, price, close, quantity }) {
   };
 
   const confirmOrder = () => {
-    Razorpay(product, price, quantity);
+    Razorpay(product, price, quantity,navigate);
     handleClose();
   };
 

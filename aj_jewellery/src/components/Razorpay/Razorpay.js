@@ -1,8 +1,7 @@
 import makeToast from "../../Toaster/Toaster";
 import Logo from "../../images/logo.png";
-import { useNavigate } from "react-router-dom";
 
-const afterPaymentUtilities= async(productId,quantity,price)=>{
+const afterPaymentUtilities= async(productId,quantity,price,navigate)=>{
     
     //remove from cartItems
     //in buyer cartPage, it should be removed and if product quantity is zero now please remove it
@@ -17,15 +16,15 @@ const afterPaymentUtilities= async(productId,quantity,price)=>{
             productId:productId,
             orderQuantity:quantity,
             price:price
-        }),
+        })
     });
     
     const json = await response.json();
-    window.location.pathname='/';
+    navigate('/orders');
 }
-function Razorpay(product,price,quantity) {
+function Razorpay(product,price,quantity,navigate) {
 
-    afterPaymentUtilities(product._id,quantity,price);//comment it also
+    afterPaymentUtilities(product._id,quantity,price,navigate);//comment it also
     // var options = {
     //     "key": "rzp_test_3IJsPomtxUdrvT",
     //     "amount": (1*100), //(price*100)
