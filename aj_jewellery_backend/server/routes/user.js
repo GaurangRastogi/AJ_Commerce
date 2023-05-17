@@ -15,22 +15,17 @@ router.get('/getProductById/:productId',userController.getProductById);
 router.get('/cartItems/:userId',userController.cartItemsByUserID);
 router.get('/cartItems/:userId/:productId',userController.cartItemByUserIdProductId);
 router.post('/addToCart',userController.addToCart);
+router.post('/order',userController.order);
 router.delete('/removeFromCart',userController.removeFromCart);
 
-/*
 
-i) getProducts
-getProducts,
-getProduct/:id
-addToCart
-removeFromCart
+//order routes
+router.get('/order/:userId',userController.orderedItemsOfUser);
+
+
+/*
 updateProfile
 myProfile
-
-myProducts /products in cart
-
-order //take care of quantity while ordering
-orderHistory
  */
 
 module.exports=router;

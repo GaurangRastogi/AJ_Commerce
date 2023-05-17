@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import makeToast from "../../Toaster/Toaster";
 import Navbar from "../../components/Navbar/Navbar";
 import CartItem from "../../components/CartItem/CartItem";
-import Footer from '../../components/Footer/Footer.js';
+import Footer from "../../components/Footer/Footer.js";
 import "./CartPage.css";
 
 function CartPage() {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const [cart, setCart] = useState();
-  const [flag,setFlag]=useState(0)
+  const [flag, setFlag] = useState(0);
 
   const cartItemsOfUser = async () => {
     const response = await fetch(
@@ -35,10 +35,21 @@ function CartPage() {
   return (
     <div className="cartPage">
       <Navbar />
-      {cart &&
-        cart.map((cartItem, i) => <CartItem key={cartItem._id} cartItem={cartItem}  toggleFlag={()=>setFlag(!flag)}/>)}
-      
-      <Footer/>
+      {console.log(cart)}
+      {cart && cart.length? (
+        cart.map((cartItem, i) => (
+          <CartItem
+            key={cartItem._id}
+            cartItem={cartItem}
+            toggleFlag={() => setFlag(!flag)}
+          />
+        ))
+      ) : (
+        <div className="empty">
+          <h1>Your Cart is Empty!</h1>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 }

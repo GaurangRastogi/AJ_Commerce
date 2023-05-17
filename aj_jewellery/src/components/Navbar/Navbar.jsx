@@ -26,6 +26,10 @@ function Navbar() {
     navigate('/cart');
   };
 
+  const goToOrderPage=()=>{
+    navigate('/orders');
+  }
+
   const logOut=()=>{
     setUserId(localStorage.getItem("userId"));
   }
@@ -43,12 +47,12 @@ function Navbar() {
         <span onClick={()=>goHomePage()}>Home</span>
         <span onClick={() => goProductPage()}>Product</span>
         <span onClick={()=>goToCartPage()}>Cart</span>
-        <span>Orders</span>
+        <span onClick={()=>goToOrderPage()}>Orders</span>
         {userId === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
           //on click open the profile page and there only have the option to log out
-          <MenuListComposition  logOut={()=>logOut()}/>
+          <MenuListComposition  logOut={()=>logOut()} goToCartPage={()=>goToCartPage()} goToOrderPage={()=>goToOrderPage()}/>
         )}
       </div>
 
@@ -68,7 +72,7 @@ function Navbar() {
             <p  onClick={()=>goHomePage()}>Home</p>
             <p onClick={() => goProductPage()}>Product</p>
             <p onClick={()=>goToCartPage()}>Cart</p>
-            <p>Orders</p>
+            <p onClick={()=>goToOrderPage()}>Orders</p>
             {userId ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (

@@ -11,9 +11,13 @@ import makeToast from "../../Toaster/Toaster";
 import "./MenuItem.css";
 import { useNavigate } from "react-router-dom";
 
-export default function MenuListComposition({ logOut }) {
+export default function MenuListComposition({
+  logOut,
+  goToCartPage,
+  goToOrderPage,
+}) {
   const [open, setOpen] = React.useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const username =
     localStorage.getItem("user")[0].toUpperCase() +
     localStorage.getItem("user").substring(1);
@@ -27,14 +31,14 @@ export default function MenuListComposition({ logOut }) {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-    if (number === 0) console.log(3, number);
-    else if (number === 1) console.log(2, number);
+    if (number === 0) goToCartPage();
+    else if (number === 1) goToOrderPage();
     else {
       localStorage.setItem("user", "");
       localStorage.setItem("userId", "");
       logOut();
       makeToast("warning", "Logged Out Successfully!!");
-      navigate('/');
+      navigate("/");
     }
     setOpen(false);
   };
@@ -68,7 +72,7 @@ export default function MenuListComposition({ logOut }) {
         aria-haspopup="true"
         onClick={handleToggle}
         style={{
-          padding:"0"
+          padding: "0",
         }}
       >
         <Avatar

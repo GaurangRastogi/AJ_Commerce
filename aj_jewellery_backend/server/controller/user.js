@@ -2,9 +2,8 @@ const Admin = require("../models/admin");
 const User = require("../models/user");
 const Product = require("../models/product");
 const Order = require("../models/order");
-const Cart=require('../models/cart');
+const Cart = require("../models/cart");
 const { sha256 } = require("js-sha256");
-const product = require("../models/product");
 
 require("../middleware/database");
 
@@ -25,8 +24,7 @@ exports.signUp = async (req, res) => {
       $or: [{ userName: userName }, { userEmail: userEmail }],
     });
 
-    if (userExists) 
-      throw "User with same credentials exists.";
+    if (userExists) throw "User with same credentials exists.";
 
     const user = new User({
       userName,
@@ -38,11 +36,11 @@ exports.signUp = async (req, res) => {
     await user.save();
 
     res.status(200).send({
-      type:"success",
+      type: "success",
       message: "User [" + userName + "] registered successfully",
     });
   } catch (err) {
-    res.status(400).send({ type:"error",message: "Error occured " + err });
+    res.status(400).send({ type: "error", message: "Error occured " + err });
   }
 };
 
@@ -60,8 +58,8 @@ exports.signIn = async (req, res) => {
 
     res.json({
       message: "User logged in successfully",
-      userId:user._id,
-      userName:user.userName
+      userId: user._id,
+      userName: user.userName,
     });
   } catch (err) {
     res.status(400).send({ message: "Error occured " + err });
@@ -81,7 +79,6 @@ exports.getProductItems = async (req, res) => {
         },
       },
     ]);
-
 
     res.status(200).json(productItems);
   } catch (err) {
@@ -117,39 +114,31 @@ exports.getProductByTypes = async (req, res) => {
   }
 };
 
-
-
-
-
-exports.getProductItem = async(req,res)=>{
-
-  try{
-    const search=req.params.search;
-    const product=await Product.findOne( {$or:[{"productType" : { $regex : new RegExp(search, "i") }},{"productName" : { $regex : new RegExp(search, "i") }}]}  );
-    if(product)
-      res.status(200).send({message:product.productType});
-    else
-      res.status(200).send({message:'/'});
-  }
-  catch(err){
+exports.getProductItem = async (req, res) => {
+  try {
+    const search = req.params.search;
+    const product = await Product.findOne({
+      $or: [
+        { productType: { $regex: new RegExp(search, "i") } },
+        { productName: { $regex: new RegExp(search, "i") } },
+      ],
+    });
+    if (product) res.status(200).send({ message: product.productType });
+    else res.status(200).send({ message: "/" });
+  } catch (err) {
     res.status(400).send({ message: "Error occured " + err });
   }
-}
+};
 
-exports.getProductById = async(req,res)=>{
-  try{
-    const productId=req.params.productId;
-    const product=await Product.findOne({_id:productId});
-    res.status(200).send({message:product});
-  }
-  catch(err){
+exports.getProductById = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const product = await Product.findOne({ _id: productId });
+    res.status(200).send({ message: product });
+  } catch (err) {
     res.status(400).send({ message: "Error occured " + err });
   }
-}
-
-
-
-
+};
 
 /**
  * Cart Routes
@@ -162,61 +151,124 @@ router.delete('/removeFromCart',userController,removeFromCart);
 *
 */
 
-exports.cartItemsByUserID = async(req,res)=>{
-    try{
-
-      const userId=req.params.userId;
-      const cartItems = await Cart.find({userId:userId});
-      res.status(200).send({message:cartItems});
-
-    }
-    catch(err){
-      res.status(400).send({ message: "Error occured " + err });
-    }
-}
-
-exports.cartItemByUserIdProductId= async(req,res)=>{
-    try{
-      const userId=req.params.userId;
-      const productId=req.params.productId;
-      const cartItem=await Cart.find({userId:userId,productId:productId});
-
-      res.status(200).send({message:cartItem});
-    }
-    catch(err){
-      res.status(400).send({ message: "Error occured " + err });
-    }
-}
-
-exports.addToCart = async(req,res)=>{
-    try{
-      //need many things to add -> productId, userId
-      const userId=req.body.userId;
-      const productId=req.body.productId;
-
-      const cartItem=new Cart({
-        userId:userId,
-        productId:productId
-      })
-
-      await cartItem.save();
-      res.status(200).send({message:"Added!!"})
-    } 
-    catch(err){
-      res.status(400).send({ message: "Error occured " + err });
-    }
-}
-
-exports.removeFromCart = async(req,res)=>{
-  try{
-    const userId=req.body.userId;
-    const productId=req.body.productId;
-
-    const delCartItem=await Cart.deleteOne({userId:userId,productId:productId});
-
-    res.status(200).send({message:"Removed!!"});
-  } 
-  catch(err){
+exports.cartItemsByUserID = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const cartItems = await Cart.find({ userId: userId });
+    res.status(200).send({ message: cartItems });
+  } catch (err) {
     res.status(400).send({ message: "Error occured " + err });
   }
-}
+};
+
+exports.cartItemByUserIdProductId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+    const cartItem = await Cart.find({ userId: userId, productId: productId });
+
+    res.status(200).send({ message: cartItem });
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
+
+exports.addToCart = async (req, res) => {
+  try {
+    //need many things to add -> productId, userId
+    const userId = req.body.userId;
+    const productId = req.body.productId;
+
+    const cartItem = new Cart({
+      userId: userId,
+      productId: productId,
+    });
+
+    await cartItem.save();
+    res.status(200).send({ message: "Added!!" });
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
+
+exports.removeFromCart = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const productId = req.body.productId;
+
+    const delCartItem = await Cart.deleteOne({
+      userId: userId,
+      productId: productId,
+    });
+
+    res.status(200).send({ message: "Removed!!" });
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
+
+exports.order = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const productId = req.body.productId;
+    const orderQuantity = req.body.orderQuantity;
+    const price = req.body.price;
+
+    //remove from cart
+    const delCartItem = await Cart.deleteOne({
+      userId: userId,
+      productId: productId,
+    });
+
+    //decrase quantity
+    const updateQuantity = await Product.updateOne(
+      { _id: productId },
+      { $inc: { productQuantity: -orderQuantity } }
+    );
+
+    //create new order
+    const order = new Order({
+      productId: productId,
+      userId: userId,
+      orderDate: new Date(),
+      orderPrice: price,
+      orderQuantity: orderQuantity,
+      status: false,
+    });
+
+    await order.save();
+
+    res.status(200).send({ message: "Successfull!!" });
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
+
+exports.orderedItemsOfUser = async (req, res) => {
+  try {
+    const userId=req.params.userId;
+    //get Pending order
+    const porders=await Order.find({userId:userId,status:false});
+
+    let pendingOrders=[];
+    for await(const item of porders){
+      const productId=item.productId;  
+      const productName=await Product.findOne({_id:productId},'productName');
+      pendingOrders.push([item,productName]);
+    }
+    //get Delivered order
+
+    let deliveredItems=[];
+    const dItems=await Order.find({userId:userId,status:true});
+    for await(const item of dItems){
+      const productId=item.productId;  
+      const productName=await Product.findOne({_id:productId},'productName');
+      deliveredItems.push([item,productName]);
+    }
+    
+    res.status(200).send({pending:pendingOrders,delivered:deliveredItems});
+
+  } catch (err) {
+    res.status(400).send({ message: "Error occured " + err });
+  }
+};
