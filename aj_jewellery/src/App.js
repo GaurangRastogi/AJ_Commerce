@@ -11,6 +11,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import Authentication from "./pages/AuthenticationPage/Authentication";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import AdminOrderPage from "./pages/AdminOrderPage/AdminOrderPage";
 
 function App() {
   useEffect(() => {
@@ -47,6 +48,9 @@ function App() {
     {
       path:"/orders",
       element:<OrderPage/>
+    },{
+      path:"/admin/orders",
+      element:<AdminOrderPage/>
     }
   ]);
   return <RouterProvider router={router} />;

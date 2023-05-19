@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import MenuListComposition from "../MenuItem/MenuItem";
 import makeToast from "../../Toaster/Toaster";
+import CreateModal from "../CreateModal/CreateModal";
 
-function Navbar() {
+function Navbar({onCreate}) {
   const [hamburger, setHamburger] = useState(true);
-  const [userId,setUserId]=useState(localStorage.getItem("userId"));
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [modal,setModal] = useState(false);
   const navigate = useNavigate();
 
-  const goHomePage=()=>{
+  const goHomePage = () => {
     navigate("/");
-  }
+  };
   const goSignIn = () => {
     navigate("/signin");
   };
@@ -22,37 +25,74 @@ function Navbar() {
     navigate("/products");
   };
 
-  const goToCartPage=()=>{
-    navigate('/cart');
+  const goToCartPage = () => {
+    navigate("/cart");
   };
 
-  const goToOrderPage=()=>{
-    navigate('/orders');
-  }
+  const goToOrderPage = () => {
+    navigate("/orders");
+  };
 
-  const logOut=()=>{
-    setUserId(localStorage.getItem("userId"));
+  const logOut = () => {
+    // setUserId(localStorage.getItem("userId"));
+    setUserId("");
+    setUser("");
+  };
+
+  const goToAdminOrderPage = () => {
+    navigate("/admin/orders");
+  };
+
+  const openModalForCreateProduct = () => {
+    setModal(true);
+  };
+  const closeCreateProductModal=()=>{
+    setModal(false);
+    //update product page, if already in product page
   }
-  useEffect(()=>{
+  useEffect(() => {
     // just to update navbar, if logged out
-  },[userId])
+  }, [userId]);
 
   return (
     <div className="navbar">
+      {modal&&<CreateModal closeProduct={closeCreateProductModal} onCreate={onCreate}/>}
       <div className="logo">
         <img src={Logo} alt={"Logo"} />
         <p id="cursive">AJ Jewellers</p>
       </div>
       <div className="links">
-        <span onClick={()=>goHomePage()}>Home</span>
+        <span onClick={() => goHomePage()}>Home</span>
         <span onClick={() => goProductPage()}>Product</span>
-        <span onClick={()=>goToCartPage()}>Cart</span>
-        <span onClick={()=>goToOrderPage()}>Orders</span>
-        {userId === "" ? (
+        {userId && <span onClick={() => goToCartPage()}>Cart</span>}
+        {userId && <span onClick={() => goToOrderPage()}>Orders</span>}
+        {user === "Admin_Ar" && (
+          <span
+            onClick={() => {
+              goToAdminOrderPage();
+            }}
+          >
+            Orders
+          </span>
+        )}
+        {user === "Admin_Ar" && (
+          <span
+            onClick={() => {
+              openModalForCreateProduct();
+            }}
+          >
+            <i className="fa-solid fa-cart-plus" />
+          </span>
+        )}
+        {userId === "" && user === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
           //on click open the profile page and there only have the option to log out
-          <MenuListComposition  logOut={()=>logOut()} goToCartPage={()=>goToCartPage()} goToOrderPage={()=>goToOrderPage()}/>
+          <MenuListComposition
+            logOut={() => logOut()}
+            goToCartPage={() => goToCartPage()}
+            goToOrderPage={() => goToOrderPage()}
+          />
         )}
       </div>
 
@@ -69,14 +109,28 @@ function Navbar() {
               onClick={() => setHamburger(true)}
               style={{ marginLeft: "30px" }}
             />
-            <p  onClick={()=>goHomePage()}>Home</p>
+            {console.log(user)}
+            <p onClick={() => goHomePage()}>Home</p>
             <p onClick={() => goProductPage()}>Product</p>
-            <p onClick={()=>goToCartPage()}>Cart</p>
-            <p onClick={()=>goToOrderPage()}>Orders</p>
-            {userId ? (
+            {userId && <p onClick={() => goToCartPage()}>Cart</p>}
+            {userId && <p onClick={() => goToOrderPage()}>Orders</p>}
+            {user === "Admin_Ar" && (
+              <p onClick={() => goToAdminOrderPage()}>Orders</p>
+            )}
+            {user === "Admin_Ar" && (
+              <p
+                onClick={() => {
+                  openModalForCreateProduct();
+                }}
+              >
+                <i className="fa-solid fa-cart-plus" />
+              </p>
+            )}
+
+            {userId === "" && user === "" ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (
-              <MenuListComposition logOut={()=>logOut()}/>
+              <MenuListComposition logOut={() => logOut()} />
             )}
           </div>
         )}

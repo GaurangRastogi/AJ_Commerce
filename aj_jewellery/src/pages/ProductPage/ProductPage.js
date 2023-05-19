@@ -6,10 +6,13 @@ import './ProductPage.css';
 import TypeBar from "../../components/TypeBar/TypeBar";
 import Footer from "../../components/Footer/Footer";
 import Product from "../../components/Product/Product";
+import UpdateModal from "../../components/UpdateModal/UpdateModal";
 
 function ProductPage() {
 
   const [myProducts,setMyProducts]=useState([]);
+  const [onUpdate,setOnUpdate]=useState(false);
+  const user=localStorage.getItem("user");
   const [modal,setModal]=useState(null);
   const getUser= async()=>{
 
@@ -28,12 +31,13 @@ function ProductPage() {
   }
   useEffect(() => {
     getUser();
-  }, []);
+  }, [onUpdate]);
 
   return (
     <div className="productPage">
-      {modal&&<Product card={modal} closeProduct={closeProduct}/>}
-      <Navbar />
+      {user!=="Admin_Ar"&&modal&&<Product card={modal} closeProduct={closeProduct}/>}
+      {user==="Admin_Ar"&&modal&&<UpdateModal card={modal} closeProduct={closeProduct} onUpdateUtility={()=>setOnUpdate(!onUpdate)}/>}
+      <Navbar onCreate={()=>setOnUpdate(!onUpdate)}/>
       <SearchBar/>
       <ItemBar title={'Product Types'}/>
       {myProducts&&myProducts.map((products,i)=>

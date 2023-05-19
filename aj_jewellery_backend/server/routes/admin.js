@@ -2,16 +2,9 @@ const express = require("express");
 const router = express.Router();
 const adminController=require("../controller/admin");
 
-
-
+router.get('/getOrders',adminController.getOrders);
 router.post('/addProduct',adminController.addProduct);
-//update Product, deleteProduct, deliverProduct,getAllProduct -> so it's viewed as list
+router.put('/updateProduct',adminController.updateProduct);
+router.put('/deliverProduct',adminController.deliverProduct);
 
-/*
-
-signUp,
-signIn,
-addProduct
-updateProduct
- */
 module.exports=router;
