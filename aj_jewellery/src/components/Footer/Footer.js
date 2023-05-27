@@ -1,6 +1,24 @@
 import React from 'react'
+import { useRef } from 'react';
 import './Footer.css';
+import { useNavigate } from 'react-router-dom';
+import makeToast from '../../Toaster/Toaster';
 function Footer() {
+  const navigate=useNavigate();
+  const textRef = useRef(null);
+
+  const copyToClipboard = () => {
+    if (textRef.current) {
+      const range = document.createRange();
+      range.selectNode(textRef.current);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      makeToast("info","Copied to Clipboard!!")
+    }
+  };
+
   return (
     <div className="footer">
         <table className="footerTable">
@@ -28,30 +46,34 @@ function Footer() {
             <tr>
               <td>of love, a timeless</td>
               <td>Rings</td>
-              <td>Cart Page</td>
+              <td onClick={()=>navigate('/cart')}>Cart Page</td>
               <td>
+              <a href="mailto:gaurangrastogi209@gmail.com" style={{color:"grey",textDecoration:"none"}}>
                 <i className="fa-solid fa-envelope" />
                 <span className="footerResponsive">
                   &nbsp;gaurangrastogi209
                 </span>
+                </a>
               </td>
             </tr>
             <tr>
               <td>gift that can be passed</td>
               <td>Chains</td>
-              <td>Product Page</td>
+              <td onClick={()=>navigate('/products')}>Product Page</td>
               <td>
                 <i className="fa-solid fa-phone" />
-                <span className="footerResponsive"> &nbsp;+91 6393056856</span>
+                <span className="footerResponsive" onClick={copyToClipboard} ref={textRef} id="number"> &nbsp;+91 6393056856</span>
               </td>
             </tr>
             <tr>
               <td>down through generations."</td>
-              <td style={{ textDecoration: "underline" }}>See More</td>
-              <td>HomePage</td>
+              <td style={{ textDecoration: "underline" }} onClick={()=>navigate('/products')}>See More</td>
+              <td onClick={()=>navigate('/')}>HomePage</td>
               <td>
+                <a href="https://github.com/gaurangrastogi" target="_blank" rel="noopener noreferrer" style={{color:"grey",textDecoration:"none"}}>
                 <i className="fa-brands fa-github" />
                 <span className="footerResponsive">&nbsp;gaurangrastogi</span>
+                </a>
               </td>
             </tr>
           </tbody>

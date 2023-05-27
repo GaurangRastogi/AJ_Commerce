@@ -26,12 +26,15 @@ const SignUp = ({utility}) => {
     const json = await response.json();
     makeToast(json.type,json.message);
     
+    if(json.type==="success")
+      utility();
+      
     name.value="";
     email.value="";
     number.value="";
     password.value="";
 
-    utility();
+   
   }
   return (
     <div className="form-comp cfb">

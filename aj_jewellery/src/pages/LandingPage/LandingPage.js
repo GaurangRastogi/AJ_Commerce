@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./LandingPage.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Girl from "../../images/girl.jpg";
@@ -7,11 +7,15 @@ import Button from "../../components/Button/Button";
 import Swiper from "../../components/Swiper/SwiperJs";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import Footer from "../../components/Footer/Footer";
-function LandingPage() {
-
+import CalculatorModal from "../../components/Calculator/CalculatorModal";
+function LandingPage() { 
+  const [calculator,setCalculator]= useState(false);
+  useEffect(()=>{
+  },[calculator])
   return (
     <div className="landingPage">
       <Navbar />
+      {calculator&&<CalculatorModal closeCal={()=>setCalculator(false)}/>}
       <div className="mainContent">
         <div className="left">
           <h1>Happiness Comes in the box of jewellery</h1>
@@ -69,7 +73,7 @@ function LandingPage() {
 
         <div className="buttonsPriceSection">
           <Button value={"Indicator"} />
-          <Button value={"Calculate"} />
+          <Button value={"Calculate"} utility={()=>setCalculator(true)}/>
         </div>
       </div>
 

@@ -4,8 +4,10 @@
 
 *handle quantity properly this time*
     
-    1.Some admin utility(only single admin, but need some interface to crud products and deliver order)
-    2. Profile Page
+    1.Profile Page
+    //user flask i would say and sql there you can call cost api
+    //in every hour of deployment and run the ml model once a day
+    //while in the front end.. you will call the one api every hour
     3.Live  Price
     4. Metal prediction
     5. Online Machine Learning (continously updating during deployment)
