@@ -4,6 +4,7 @@
   "description": "An application for a jewellery store",
   "main": "app.js",
   "scripts": {
+    "start":"node app.js",
     "test": "npm start"
   },
   "author": "Gaurang Rastogi",
