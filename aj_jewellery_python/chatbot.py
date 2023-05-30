@@ -39,6 +39,7 @@ def LemNormalize(text):
 def response(user_response):
     robo_response=''
     sent_tokens.append(user_response)
+    # split using spaces, if find in (either data.corpus) or 'wordnet' nltk dictionary add it,else discard it
     TfidfVec = TfidfVectorizer(tokenizer=LemNormalize, stop_words='english')
     tfidf = TfidfVec.fit_transform(sent_tokens)
     vals = cosine_similarity(tfidf[-1], tfidf)

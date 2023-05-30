@@ -14,6 +14,7 @@
     6. Use api, to get gold price and add in the database.
     7. ChatBot
     8. Blog Post Website (question answering website) linked to main website ->  (associated website)
-    
+    9. split using spaces, if find in (either data.corpus) or 'wordnet' nltk dictionary add it,else discard it
+    10. Why socket creating everytime?
 
 ## Update Profile Option Also
