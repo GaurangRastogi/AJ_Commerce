@@ -1,4 +1,3 @@
-# %%
 import re
 import random
 
@@ -11,15 +10,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 import nltk
 from nltk.stem import WordNetLemmatizer
 
-
-# %%
 # uncomment the following only the first time
 # nltk.download('punkt') # first-time use only
 # nltk.download('wordnet') # first-time use only
 # nltk.download('popular', quiet=True) 
 # # for downloading packages
 
-# %%
 # self learning chatbot
 
 with open('data.txt','r', encoding='utf8', errors ='ignore') as fin:
@@ -57,7 +53,6 @@ def response(user_response):
         robo_response = robo_response+sent_tokens[idx]
         return robo_response
 
-# %%
 class RuleBot:
     ###Potential Negative Response
     negative_responses=("no","nope","nah","naw","not a chance","sorry")
@@ -181,14 +176,6 @@ class RuleBot:
     #     return random.choice(responses)
     
 
-# %%
 AlienBot=RuleBot()
 AlienBot.chat("jewellery")
-
-# %%
-# pickle file
-
-
-
-
 
