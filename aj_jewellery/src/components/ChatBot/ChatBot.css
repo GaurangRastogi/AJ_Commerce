@@ -1,0 +1,9 @@
+.chatbot_left{
+    color: rgb(3, 94, 123);
+    text-align: left;
+}
+
+.chatbot_right{
+    color:  #505C7A;
+    text-align: right;
+}

@@ -8,7 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import Product from "../../components/Product/Product";
 import UpdateModal from "../../components/UpdateModal/UpdateModal";
 
-function ProductPage() {
+function ProductPage({socket}) {
 
   const [myProducts,setMyProducts]=useState([]);
   const [onUpdate,setOnUpdate]=useState(false);
@@ -43,7 +43,7 @@ function ProductPage() {
       {myProducts&&myProducts.map((products,i)=>
          <TypeBar key={i} type={products.productType._id} products={products.elements} openProduct={openProduct}/>
       )}
-      <Footer/>
+      <Footer socket={socket}/>
     </div>
   );
 }

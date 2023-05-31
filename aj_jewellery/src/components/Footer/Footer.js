@@ -1,9 +1,11 @@
 import React from 'react'
-import { useRef } from 'react';
+import { useRef,useState } from 'react';
 import './Footer.css';
 import { useNavigate } from 'react-router-dom';
 import makeToast from '../../Toaster/Toaster';
-function Footer() {
+import ChatBot from '../ChatBot/ChatBot';
+function Footer({socket}) {
+  const [chatBot,setChatBot]=useState(false);
   const navigate=useNavigate();
   const textRef = useRef(null);
 
@@ -21,6 +23,7 @@ function Footer() {
 
   return (
     <div className="footer">
+        {chatBot&&<ChatBot closeProduct={()=>setChatBot(!chatBot)} socket={socket}/>}
         <table className="footerTable">
           <thead>
             <tr>
@@ -42,6 +45,7 @@ function Footer() {
                   &nbsp;Your Address buddy
                 </span>
               </td>
+               <td rowSpan="5"><i class="fa-3x fa-solid fa-comment-dots" width="100px" height="100px" onClick={()=>setChatBot(!chatBot)}/></td>
             </tr>
             <tr>
               <td>of love, a timeless</td>

@@ -6,7 +6,7 @@ import CartItem from "../../components/CartItem/CartItem";
 import Footer from "../../components/Footer/Footer.js";
 import "./CartPage.css";
 
-function CartPage() {
+function CartPage({socket}) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const [cart, setCart] = useState();
@@ -49,7 +49,7 @@ function CartPage() {
           <h1>Your Cart is Empty!</h1>
         </div>
       )}
-      <Footer />
+      <Footer  socket={socket}/>
     </div>
   );
 }

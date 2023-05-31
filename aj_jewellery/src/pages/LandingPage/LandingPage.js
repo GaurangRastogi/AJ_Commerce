@@ -8,7 +8,7 @@ import Swiper from "../../components/Swiper/SwiperJs";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import Footer from "../../components/Footer/Footer";
 import CalculatorModal from "../../components/Calculator/CalculatorModal";
-function LandingPage() { 
+function LandingPage({socket}) { 
   const [calculator,setCalculator]= useState(false);
   useEffect(()=>{
   },[calculator])
@@ -76,8 +76,7 @@ function LandingPage() {
           <Button value={"Calculate"} utility={()=>setCalculator(true)}/>
         </div>
       </div>
-
-      <Footer/>
+      <Footer socket={socket}/>
     </div>
   );
 }

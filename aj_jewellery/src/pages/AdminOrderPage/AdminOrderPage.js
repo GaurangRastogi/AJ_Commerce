@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import "./AdminOrderPage.css";
 
-function AdminOrderPage() {
+function AdminOrderPage({socket}) {
 
   const user=localStorage.getItem("user");
   const [pending, setPending] = useState();
@@ -135,7 +135,7 @@ function AdminOrderPage() {
             </table>
           </div>
       </div>
-      <Footer />
+      <Footer socket={socket}/>
     </div>
   );
 }
