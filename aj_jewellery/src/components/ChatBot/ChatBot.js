@@ -58,7 +58,7 @@ function ChatBot({ closeProduct,socket}) {
     const reply = obj.Reply;
     console.log(reply);
     const date=new Date();
-    const showTime = date.getHours()+ ':' + date.getMinutes();
+    const showTime = date.toLocaleTimeString();
     setChats([...chats, {"id":"chatbot_left","time":showTime,"chat":reply}]);
 
     // setChats([...chats, reply]);
@@ -75,7 +75,7 @@ function ChatBot({ closeProduct,socket}) {
     } else {
       //call socket.io
       const date=new Date();
-      const showTime = date.getHours()+ ':' + date.getMinutes();
+      const showTime = date.toLocaleTimeString();
       setChats([...chats, {"id":"chatbot_right","time":showTime,"chat":chat.value}]);
       socket.emit("Question", chat.value);
     }
@@ -107,13 +107,13 @@ function ChatBot({ closeProduct,socket}) {
             margin: "2rem",
           }}
         >
-          Let's Chat to Us
+          Let's Chat
         </Typography>
         <Grid
           sx={{
             display: "flex",
             flexDirection: "column",
-            // alignItems: "center",
+            backgroundColor:"wheat",
             border: "2px solid #505C7A",   
             height: "400px",
             margin: "2px",
@@ -123,7 +123,7 @@ function ChatBot({ closeProduct,socket}) {
         >
         {chats&&chats.map((obj,i)=>{
           console.log(obj);
-          return <Typography variant="h6" key={i} className={obj.id}
+          return <Grid><Typography variant="h4" key={i} className={obj.id}
           sx={{
             fontFamily: "cursive",
             fontSize:"15px",
@@ -131,6 +131,15 @@ function ChatBot({ closeProduct,socket}) {
           }}>
           {obj.chat}
           </Typography>
+          <Typography variant="h6" key={i} className={`time ${obj.id}`}
+            sx={{
+              fontFamily: "cursive",
+              fontSize:"10px",
+              fontWeight:"bold"
+            }}>
+            {obj.time}
+          </Typography>
+          </Grid>
         })}
         
         </Grid>   

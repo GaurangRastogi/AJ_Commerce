@@ -16,5 +16,5 @@
     8. Blog Post Website (question answering website) linked to main website ->  (associated website)
     9. split using spaces, if find in (either data.corpus) or 'wordnet' nltk dictionary add it,else discard it
     10. Why socket creating everytime?
-
+    11. Add a better corpus + greeting corpus
 ## Update Profile Option Also
