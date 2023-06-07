@@ -1,6 +1,5 @@
 numpy==1.23.5
 Flask==1.1.4
-Flask-MySQLdb==1.0.1
 pandas==1.4.2
 nltk==3.8
 sklearn==0.0
