@@ -38,11 +38,17 @@ io.on("connection", async (socket) => {
     console.log("Clients Question: " + JSON.stringify(data));
 
     // socket.broadcast.emit("ChatBot Answer", data);
+<<<<<<< HEAD
     const response = await axios
       .post("https://flask-app-python.azurewebsites.net/chat", {
         chat: data,
       })
       .then((response) => {
+=======
+    const response=await axios.post('https://flask-app-python.azurewebsites.net/chat',{
+        chat:data
+    }).then((response)=>{
+>>>>>>> f51d90cc35840f33f85c76e1c6b8678170d8fc95
         console.log(response.data);
         socket.emit("Answer", response.data);
       });

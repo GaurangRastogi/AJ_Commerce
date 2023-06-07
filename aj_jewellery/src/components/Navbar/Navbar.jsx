@@ -126,7 +126,11 @@ function Navbar({onCreate}) {
                 <i className="fa-solid fa-cart-plus" />
               </p>
             )}
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> f51d90cc35840f33f85c76e1c6b8678170d8fc95
             {!user||user === "" ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (
