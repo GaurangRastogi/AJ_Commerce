@@ -18,13 +18,14 @@ import { io } from "socket.io-client";
 function App() {
   const socket = io(process.env.REACT_APP_BACKEND_URL);
   useEffect(() => {
+    // localStorage.setItem("user", "");
+    // localStorage.setItem("userId", "");
     localStorage.setItem("Gold", 1000);
     localStorage.setItem("Silver", 100);
-    if (window.location.pathname !== "/") 
-        window.location.pathname = "/";
+    if (window.location.pathname !== "/") window.location.pathname = "/";
 
-     socket.on("connect", () => {
-      console.log("connected")
+    socket.on("connect", () => {
+      console.log("connected");
       // const user =
       //   localStorage.getItem("user") != ""
       //     ? localStorage.getItem("user")
@@ -36,42 +37,43 @@ function App() {
       // // date.getHours()+ ':' + date.getMinutes()
 
       // setChats([...chats, {"id":1,"time":showTime,"chat":newChat}]);
-      // console.log(chats);  
+      // console.log(chats);
     });
-      
+
     return () => {
       localStorage.setItem("user", "");
       localStorage.setItem("userId", "");
       localStorage.setItem("Gold", 1000);
       localStorage.setItem("Silver", 100);
     };
-  },[]);
+  }, []);
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingPage socket={socket}/>,
+      element: <LandingPage socket={socket} />,
     },
     {
       path: "/signin",
-      element: <Authentication/>,
+      element: <Authentication />,
     },
     {
       path: "/products",
-      element: <ProductPage socket={socket}/>,
+      element: <ProductPage socket={socket} />,
     },
     {
       path: "/cart",
-      element: <CartPage socket={socket}/>,
+      element: <CartPage socket={socket} />,
     },
     {
-      path:"/orders",
-      element:<OrderPage socket={socket}/>
+      path: "/orders",
+      element: <OrderPage socket={socket} />,
       // element:<OrderPage/>
-    },{
-      path:"/admin/orders",
-      element:<AdminOrderPage socket={socket}/>
-    }
+    },
+    {
+      path: "/admin/orders",
+      element: <AdminOrderPage socket={socket} />,
+    },
   ]);
   return <RouterProvider router={router} />;
 }

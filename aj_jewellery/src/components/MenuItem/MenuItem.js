@@ -21,6 +21,7 @@ export default function MenuListComposition({
   const username =
     localStorage.getItem("user")[0].toUpperCase() +
     localStorage.getItem("user").substring(1);
+
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
@@ -73,15 +74,13 @@ export default function MenuListComposition({
         onClick={handleToggle}
         style={{
           padding: "0",
-        }}
-      >
+        }}>
         <Avatar
           style={{
             backgroundColor: "#035E7B",
             color: "#ddcda6",
             fontSize: "larger",
-          }}
-        >
+          }}>
           {username[0]}
         </Avatar>
       </Button>
@@ -91,24 +90,21 @@ export default function MenuListComposition({
         role={undefined}
         placement="bottom-start"
         transition
-        disablePortal
-      >
+        disablePortal>
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
             style={{
               transformOrigin:
                 placement === "bottom-start" ? "left top" : "left bottom",
-            }}
-          >
+            }}>
             <Paper>
               <ClickAwayListener onClickAway={() => setOpen(false)}>
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
                   aria-labelledby="composition-button"
-                  onKeyDown={handleListKeyDown}
-                >
+                  onKeyDown={handleListKeyDown}>
                   <MenuItem onClick={(event) => handleClose(0, event)}>
                     Cart
                   </MenuItem>

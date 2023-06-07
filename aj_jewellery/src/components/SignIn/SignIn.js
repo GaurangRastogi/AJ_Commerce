@@ -31,8 +31,7 @@ const SignIn = () => {
       makeToast("success", "Welcome Sir!!");
       localStorage.setItem("user", "Admin_Ar");
       return;
-    } 
-    else {
+    } else {
       const response = await fetch(
         process.env.REACT_APP_BACKEND_URL + "user/signin",
         {

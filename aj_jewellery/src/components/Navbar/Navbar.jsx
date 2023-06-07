@@ -84,7 +84,7 @@ function Navbar({onCreate}) {
             <i className="fa-solid fa-cart-plus" />
           </span>
         )}
-        {userId === "" && user === "" ? (
+        {!user||user === "" ? (
           <span onClick={() => goSignIn()}>SignIn</span>
         ) : (
           //on click open the profile page and there only have the option to log out
@@ -127,7 +127,7 @@ function Navbar({onCreate}) {
               </p>
             )}
 
-            {userId === "" && user === "" ? (
+            {!user||user === "" ? (
               <p onClick={() => goSignIn()}>SignIn</p>
             ) : (
               <MenuListComposition logOut={() => logOut()} />

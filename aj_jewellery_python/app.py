@@ -1,6 +1,6 @@
 from chatbot  import *
 from flask import Flask, request,jsonify
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 # mysql = MySQL(app)
@@ -17,8 +17,8 @@ def users():
     return jsonify({"Reply":RuleBot().chat(request.json['chat'])})
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run()
 
 
 
