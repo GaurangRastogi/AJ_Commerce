@@ -25,7 +25,7 @@ function ChatBot({ closeProduct,socket}) {
 
   useEffect(() => {
     const user =
-        localStorage.getItem("user") != ""
+        localStorage.getItem("user") !== ""
           ? localStorage.getItem("user")
           : "Guest";
 

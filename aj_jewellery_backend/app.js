@@ -37,7 +37,7 @@ io.on("connection", async (socket) => {  //created socket
     console.log("Clients Question: " + JSON.stringify(data));
 
     // socket.broadcast.emit("ChatBot Answer", data);
-    const response=await axios.post('https://flask-app-python.azurewebsites.net/chat',{
+    const response=await axios.post('http://127.0.0.1:5000/chat',{
         chat:data
     }).then((response)=>{
         console.log(response.data);
