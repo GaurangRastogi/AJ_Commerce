@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import {
   createBrowserRouter,
@@ -17,9 +17,18 @@ import { io } from "socket.io-client";
 
 function App() {
   const socket = io(process.env.REACT_APP_BACKEND_URL);
+
+  const price_utility= async()=>{
+    const response=await fetch(process.env.REACT_APP_API_URL+'prices');
+    const json=await response.json();
+
+    localStorage.setItem("Gold",parseFloat(json[0].Gold)/10);
+    localStorage.setItem("Silver",parseFloat(json[1].Silver)/1000);
+  }
   useEffect(() => {
-    localStorage.setItem("Gold", 1000);
-    localStorage.setItem("Silver", 100);
+
+    price_utility();
+
     if (window.location.pathname !== "/") 
         window.location.pathname = "/";
 
@@ -42,8 +51,8 @@ function App() {
     return () => {
       localStorage.setItem("user", "");
       localStorage.setItem("userId", "");
-      localStorage.setItem("Gold", 1000);
-      localStorage.setItem("Silver", 100);
+      localStorage.setItem("Gold", "");
+      localStorage.setItem("Silver", "");
     };
   },[]);
 

@@ -15,6 +15,7 @@ from flask import Flask, jsonify, request
 # importing libraries
 from bs4 import BeautifulSoup as BS
 import requests
+from flask_cors import CORS
 
 
 nltk.download('punkt')  # first-time use only
@@ -23,7 +24,7 @@ nltk.download('popular', quiet=True)
 
 
 app = Flask(__name__)
-
+CORS(app)
 # cron-job to run 12AM everyday -> not working
 # cron_expression = '0 0 * * *'
 
@@ -45,7 +46,7 @@ def scheduler(foreCastArray_gold, foreCastArray_silver):
 
         # finding meta info for the current price
         ans = soup.find("span", class_="ltp").text
-        ans = int(ans.replace(",", ""))
+        ans = float(ans.replace(",", ""))
         # returning the price
         return ans
 
@@ -59,7 +60,7 @@ def scheduler(foreCastArray_gold, foreCastArray_silver):
 
         # finding meta info for the current price
         ans = soup.find("div", id="current-price").find("strong", id="el").text
-        ans = int(ans.strip()[1:]) * 1000
+        ans = float(ans.strip()[1:]) * 1000
         # returning the price
         return ans
 
@@ -127,15 +128,6 @@ def scheduler(foreCastArray_gold, foreCastArray_silver):
     writeInCSV()
     deleteInCSV()
 
-    # run prediction files here
-    # how to get previous seven days data? => wittingly from dataset (prices.csv)
-    # append output in forecast array
-    #
-    # rapid_api here
-    # one rapid_api from archit, one from you ->since only 50 per-month free
-    # append the gold and silver price and delete the first , i.e => (today-60)th data data
-    # also append in metalprice array
-
     arrayGold = predictGold()
     arraySilver = predictSilver()
 
@@ -163,22 +155,22 @@ def users():
 
 @app.route('/prices')
 def prices():
-    # index 7 has, 8'th element => today's element
-    # you can show the daily changes also
-    return jsonify({"Gold": [foreCastArray_gold[7], foreCastArray_gold[7]-foreCastArray_gold[6]], "Silver": [foreCastArray_silver[7], foreCastArray_silver[7]-foreCastArray_silver[6]]})
+    return jsonify({"Gold":str(foreCastArray_gold[7])},{"Silver":str(foreCastArray_silver[7])})
+    
+
+@app.route('/priceChange')
+def priceChange():
+    return jsonify({"Gold":str(foreCastArray_gold[7]-foreCastArray_gold[6])},{"Silver":str(foreCastArray_silver[7]-foreCastArray_silver[6])})
+
+
+
 
 
 @app.route('/forecast')
 def forecast():
-    return jsonify({"Gold Array: ": foreCastArray_gold, "Silver Array": foreCastArray_silver})
+
+    gold = [int(item) for item in foreCastArray_gold]
+    silver = [int(item) for item in foreCastArray_silver]
+    return {"Gold": gold, "Silver": silver}
 
 
-# while(True):
-
-#     for i in foreCastArray_gold:
-#         print(i, end=" ")
-
-#     for i in foreCastArray_silver:
-#         print(i, end=" ")
-
-#     time.sleep(35)

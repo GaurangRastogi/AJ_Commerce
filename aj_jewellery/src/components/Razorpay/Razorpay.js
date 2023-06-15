@@ -27,7 +27,7 @@ function Razorpay(product,price,quantity,navigate) {
     // afterPaymentUtilities(product._id,quantity,price,navigate);//comment it also
     var options = {
         "key": "rzp_test_3IJsPomtxUdrvT",
-        "amount": (1*100), //(price*100)
+        "amount": (price*100),
         "currency":"INR",
         "name": "AJ_jewellers",
         "description": "Thank you for purchasing with AJ_jewellers",

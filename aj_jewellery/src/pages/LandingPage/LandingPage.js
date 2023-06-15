@@ -12,9 +12,21 @@ import Indicator from "../../components/Indicator/Indicator";
 function LandingPage({socket}) { 
   const [calculator,setCalculator]= useState(false);
   const [indicater,setIndicator]=useState(false);
+  const [change,setChange]=useState();
+
+  const changeUtility= async()=>{
+    const response=await fetch(process.env.REACT_APP_API_URL+'priceChange');
+    const json=await response.json();
+    setChange(json);
+  }
+
+  useEffect(()=>{
+    changeUtility();
+  },[])
 
   useEffect(()=>{
   },[calculator])
+
   return (
     <div className="landingPage">
       <Navbar />
@@ -63,14 +75,14 @@ function LandingPage({socket}) {
           </thead>
           <tbody>
             <tr>
-              <td>Gold (per Kg)</td>
-              <td>Rs. 53,000</td>
-              <td>Rs. 250</td>
+              <td>Gold (per 10g)</td>
+              <td>Rs. {localStorage.getItem("Gold")*10}</td>
+              {change&&<td>Rs. {change[0].Gold}</td>}
             </tr>
             <tr>
               <td>Silver (per Kg)</td>
-              <td>Rs. 60,000</td>
-              <td>Rs. 300</td>
+              <td>Rs. {localStorage.getItem("Silver")*1000}</td>
+              {change&&<td>Rs. {change[1].Silver}</td>}
             </tr>
           </tbody>
         </table>
