@@ -109,9 +109,9 @@ export default function MenuListComposition({
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
-                  <MenuItem onClick={(event) => handleClose(0, event)}>
+                  {localStorage.getItem("userID")&&<MenuItem onClick={(event) => handleClose(0, event)}>
                     Cart
-                  </MenuItem>
+                  </MenuItem>}
                   <MenuItem onClick={(event) => handleClose(1, event)}>
                     Orders
                   </MenuItem>

@@ -1,10 +1,6 @@
-import time
-from chatbot import *
 from gold import *
 from silver import *
-
 import csv
-import nltk
 # import yfinance as yf
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -18,9 +14,12 @@ import requests
 from flask_cors import CORS
 
 
+import nltk
 nltk.download('punkt')  # first-time use only
 nltk.download('wordnet')  # first-time use only
 nltk.download('popular', quiet=True)
+#so that nltk first download properly
+from chatbot import *
 
 
 app = Flask(__name__)

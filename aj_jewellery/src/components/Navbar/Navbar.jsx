@@ -4,10 +4,9 @@ import Logo from "../../images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import MenuListComposition from "../MenuItem/MenuItem";
-import makeToast from "../../Toaster/Toaster";
 import CreateModal from "../CreateModal/CreateModal";
 
-function Navbar({onCreate}) {
+function Navbar({onCreate=()=>(console.log("Create Modal"))}) {
   const [hamburger, setHamburger] = useState(true);
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [user, setUser] = useState(localStorage.getItem("user"));
