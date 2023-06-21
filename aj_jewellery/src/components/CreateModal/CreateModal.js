@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import makeToast from "../../Toaster/Toaster";
 
-const CreateModal = ({ closeProduct,onCreate}) => {
+const CreateModal = ({ closeProduct, onCreate }) => {
   const navigate = useNavigate();
   // const [user,setUser]=useState();
   const [open, setOpen] = useState(true);
@@ -22,35 +22,53 @@ const CreateModal = ({ closeProduct,onCreate}) => {
     closeProduct();
   };
 
-  const createProduct= async ()=>{
-    const productName=document.getElementById("name");
-    const productQuantity=document.getElementById("quantity");
-    const productWeight=document.getElementById("weight");
-    const productMetal=document.getElementById("metal");
-    const productType=document.getElementById("type");
-    const productPurety=document.getElementById("purety");
-    const productPhoto=document.getElementById("photo");
-    const response = await fetch(process.env.REACT_APP_BACKEND_URL+"admin/addProduct", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-          productName:productName.value ,
-          productQuantity:productQuantity.value,
-          productWeight:productWeight.value,
-          productMetal:productMetal.value,
-          productType:productType.value,
-          productPurety:productPurety.value,
-          productPhoto:productPhoto.value
-      }),
-    });
+  const createProduct = async () => {
+    const productName = document.getElementById("name");
+    const productQuantity = document.getElementById("quantity");
+    const productWeight = document.getElementById("weight");
+    const productMetal = document.getElementById("metal");
+    const productType = document.getElementById("type");
+    const productPurety = document.getElementById("purety");
+    const productPhoto = document.getElementById("photo");
 
-    const json=await response.json();
+    if (
+      !(
+        productName.value &&
+        productQuantity.value &&
+        productWeight.value &&
+        productMetal.value &&
+        productType.value &&
+        productPurety.value &&
+        productPhoto.value
+      )
+    ) {
+      makeToast("info", "All fields are required");
+      return;
+    }
+    const response = await fetch(
+      process.env.REACT_APP_BACKEND_URL + "admin/addProduct",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          productName: productName.value,
+          productQuantity: productQuantity.value,
+          productWeight: productWeight.value,
+          productMetal: productMetal.value,
+          productType: productType.value,
+          productPurety: productPurety.value,
+          productPhoto: productPhoto.value,
+        }),
+      }
+    );
+
+    const json = await response.json();
     onCreate();
     onclose();
-    makeToast("info","Created Successfully");
-  }
+    makeToast("info", "Created Successfully");
+  };
 
   return (
     <Modal open={open} onClose={onclose}>
@@ -73,7 +91,7 @@ const CreateModal = ({ closeProduct,onCreate}) => {
             fontWeight: "bold",
             fontFamily: "cursive",
             color: "#035E7B",
-            marginBottom:"2rem"
+            marginBottom: "2rem",
           }}
         >
           Add New Product
@@ -286,24 +304,22 @@ const CreateModal = ({ closeProduct,onCreate}) => {
           </Button>
         </Grid>
 
-        
-          <Link
-            component="button"
-            variant="body2"
-            underline="hover"
-            onClick={() => onclose()}
-            sx={{
-              fontWeight: 800,
-              fontSize: "1rem",
-              letterSpacing: ".1rem",
-              fontFamily: "poppins",
-              marginLeft:"15rem",
-              marginTop:"2rem"
-            }}
-          >
-            Go Back
-          </Link>
-        
+        <Link
+          component="button"
+          variant="body2"
+          underline="hover"
+          onClick={() => onclose()}
+          sx={{
+            fontWeight: 800,
+            fontSize: "1rem",
+            letterSpacing: ".1rem",
+            fontFamily: "poppins",
+            marginLeft: "15rem",
+            marginTop: "2rem",
+          }}
+        >
+          Go Back
+        </Link>
       </Grid>
     </Modal>
   );

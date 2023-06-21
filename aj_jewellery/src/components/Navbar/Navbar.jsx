@@ -29,7 +29,10 @@ function Navbar({onCreate=()=>(console.log("Create Modal"))}) {
   };
 
   const goToOrderPage = () => {
-    navigate("/orders");
+    if(localStorage.getItem("userId")==="")
+      navigate("/admin/orders");
+    else
+      navigate("/orders");
   };
 
   const logOut = () => {

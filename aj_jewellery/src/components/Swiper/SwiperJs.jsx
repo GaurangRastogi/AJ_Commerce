@@ -7,7 +7,7 @@ import './SwiperJs.css';
 
 register();
 
-function SwiperJs() {
+function SwiperJs({buttonVal}) {
   const swiperElRef = useRef(null);
   const [items,setItems]=useState([]);
 
@@ -35,7 +35,7 @@ function SwiperJs() {
     {/* map the Card item with product... of certain item */}
     {items.map((item,i) => (
 
-      <swiper-slide key={i}><Card card={item} buttonVal={"See More"}/></swiper-slide>
+      <swiper-slide key={i}><Card card={item} buttonVal={buttonVal}/></swiper-slide>
 
     ))}
 
