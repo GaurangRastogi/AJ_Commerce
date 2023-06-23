@@ -25,7 +25,7 @@ git clone https://github.com/architjain2002/Old-town-jewelers.git
 
 
 ```bash
-First go to aj_backend_pthon, second to aj_backend and then thrid to aj_jewellery (front-end).
+First go to aj_backend_python, second to aj_backend and then third to aj_jewellery (front-end).
 ```
 
 ## Features (APIs)
